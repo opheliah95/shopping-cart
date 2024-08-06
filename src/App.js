@@ -3,7 +3,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Redirect
+  Navigate
 } from "react-router-dom";
 import Navbar from './components/Navbar';
 import Cart from "./components/Cart";
@@ -18,7 +18,8 @@ function App() {
         <Routes>
           <Route path="/cart" element={<Cart />} />
           <Route path="/" element={<Home />} />
-          <Route path="/not-found" element={<NotFound />} />
+           <Route path="/not-found" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
       </BrowserRouter>
     </div>

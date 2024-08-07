@@ -4,10 +4,12 @@ import App from './App';
 import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
 import productReducer, { productFetch } from "./features/productsSlice"
+import { productsAPI } from './features/productsAPI';
 
 const store = configureStore({
   reducer: {
-    products: productReducer
+    products: productReducer,
+    [productsAPI.reducerPath]: productsAPI.reducer
   }
 })
 

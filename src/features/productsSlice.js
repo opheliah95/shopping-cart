@@ -2,14 +2,20 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios";
 const initialState = {
     items: [],
-    status: null
+    status: null,
+    error: null
 }
 
 export const productFetch = createAsyncThunk(
     "products/productFetch",
-    async () => {
-        const response = await axios.get("http://localhost:5005/products")
-        return response?.data
+    async (id = null, { rejectWithValue }) => {
+        try {
+            const response = await axios.get("http://localhost:5005/products")
+            return response?.data
+        } catch(err) {
+            return(rejectWithValue.response.data)
+        }
+        
     }
 );
 
@@ -30,6 +36,7 @@ const productsSlice = createSlice(
                 .addCase(productFetch.rejected, (state, action) => {
                     //immer
                     state.status = "rejected"
+                    state.error = action.payload;
                 })
 
         }

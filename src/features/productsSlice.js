@@ -4,14 +4,6 @@ const initialState = {
     items: [],
     status: null
 }
-const productsSlice = createSlice(
-    {
-        name: "products",
-        initialState,
-        reducers: {}
-    }
-
-);
 
 export const productFetch = createAsyncThunk(
     "products/productFetch",
@@ -20,5 +12,30 @@ export const productFetch = createAsyncThunk(
         return response?.data
     }
 );
+
+
+const productsSlice = createSlice(
+    {
+        name: "products",
+        initialState,
+        reducers: {},
+        extraReducers: {
+            [productFetch.pending] : (state, action) => {
+                //immer
+                state.status = "pending"
+            },
+            [productFetch.fulfilled] : (state, action) => {
+                state.status = "success"
+                state.items = action.payload
+            },
+            [productFetch.rejected] : (state, action) => {
+                //immer
+                state.status = "rejected"
+            }
+        }
+    }
+
+);
+
 
 export default productsSlice.reducer;

@@ -1,9 +1,18 @@
+import { addToCart } from "../features/cartSlice";
 import { useGetAllProductsQuery } from "../features/productsAPI";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+
 const Home = () => {
   const { items, status } = useSelector((state) => state.products);
   const { data, error, isLoading } = useGetAllProductsQuery();
-  console.log("data is: ", data);
+  
+  // add dispatch
+  const dispatch = useDispatch();
+  const handleAddToCart = (product) =>{
+      dispatch(addToCart(product));
+  }
+
+  // home page
   return (
     <div className="home-container">
       {isLoading ? (
@@ -23,7 +32,7 @@ const Home = () => {
                   <span />
                   <span className="price">£ {product.price}</span>
                 </div>
-                <button>Add to Cart</button>
+                <button onClick={()=> handleAddToCart(product)}>Add to Cart</button>
               </div>
             ))}
           </div>

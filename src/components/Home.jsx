@@ -20,7 +20,8 @@ const Home = () => {
                 <img src={product.image} alt={product.name} />
                 <div className="details">
                   <span>{product.desc}</span>
-                  <span className="price">£{product.price}</span>
+                  <span />
+                  <span className="price">£ {product.price}</span>
                 </div>
                 <button>Add to Cart</button>
               </div>

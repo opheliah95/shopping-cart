@@ -10,10 +10,15 @@ const store = configureStore({
   reducer: {
     products: productReducer,
     [productsAPI.reducerPath]: productsAPI.reducer
-  }
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(productsAPI.middleware),
 })
 
 store.dispatch(productFetch())
+
+console.log('productsAPI.middleware:', typeof productsAPI.middleware); 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
